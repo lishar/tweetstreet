@@ -1,0 +1,23 @@
+{
+  "name": "bucket-api",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.2.6",
+    "jade": "*",
+    "stylus": "*",
+    "oauthorize": "0.x.x",
+    "passport": "0.1.x",
+    "passport-local": "0.1.x",
+    "passport-http-oauth": "0.1.x",
+    "connect-ensure-login": "0.1.x",
+    "konphyg": "*",
+    "sugar": "*",
+    "winston": "*",
+    "mongoose": "*",
+    "connect-mongo": "*"
+  }
+}

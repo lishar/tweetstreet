@@ -1,0 +1,6 @@
+{
+  "_comment": "Location of MongoDB instance",
+  "host": "127.0.0.1",
+  "port": "27017",
+  "name": "bucket_staging"
+}

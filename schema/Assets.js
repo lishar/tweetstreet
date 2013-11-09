@@ -10,6 +10,7 @@ exports = module.exports = function(app, mongoose) {
 
 	var portfolioSchema = new mongoose.Schema({		
 		owner: String,		
+		balance: { type: Number, default: '10000' },
 		transactions: [transactionSchema],
 		totals: [{name: String, shares: Number}],
 		created: {type: Date, default: Date.now}

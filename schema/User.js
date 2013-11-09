@@ -11,8 +11,6 @@ exports = module.exports = function(app, mongoose) {
 		status: { type: String, default: 'pending' },
 		facebook: {},
 		google: {},
-		balance: { type: Number, default: '10000' },
-
 		created: {type: Date, default: Date.now}
 	});
   

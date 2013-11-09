@@ -4,6 +4,7 @@
 var passport = require('passport')
 	, oauthorize = require('oauthorize')
 	, login = require('connect-ensure-login')
+	, hashtag = require('./hashtag')
 
 
 // create OAuth server
@@ -132,33 +133,101 @@ exports.logout = function(req, res){
 };
 
 exports.buy = function(req, res){
+	if(!req.user) {
+		res.send (401);
+		return;
+	}
+
 	var transaction = new req.app.db.models.Transaction();
 	transaction.name = req.params.hashtag;
 	transaction.shares = req.query.shares;
-	transaction.price = 0;
+	transaction.price = 10;
 	transaction.type = "buy";
 
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
+
+			if(portfolio.balance < transaction.shares * transaction.price){
+				res.send(402);
+				return;
+			}
+
+			portfolio.balance -= transaction.shares * transaction.price
 			portfolio.transactions.push(transaction);
+			var found = false;
 			portfolio.totals.forEach(function(v, k){
 				if(v.name == transaction.name){
 					v.shares += transaction.shares;
+					found = true;
 				}
 			});
 			
-			portfolio.save(function(err){
+			if(!found) {
+				portfolio.totals.push({"name": transaction.name, "shares": transaction.shares});
+			}		
+			
+			portfolio.save(function(err, portfolio){
 				if(err) console.log(err);
-				else res.send('done');
+				else res.json(portfolio);
 			})
 		}
-
-	})	  
+	})
 };
 
 exports.sell = function(req, res){
-  res.render('index', { title: 'Express' });
+ 
+  	if(!req.user) {
+		res.send (401);
+		return;
+	}
+
+	var transaction = new req.app.db.models.Transaction();
+	transaction.name = req.params.hashtag;
+	transaction.shares = req.query.shares;
+	transaction.type = "sell";
+
+	hashtag.price(req, req.params.hashtag, function(err, price) {
+		transaction.price = price;
+		
+		req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
+			if(err) console.log(err);
+			else {
+
+				var previousTotal = 0;
+				portfolio.totals.forEach(function(v, k){
+					if(v.name == transaction.name) previousTotal = v.shares;
+				});
+
+				console.log(previousTotal);
+				if(previousTotal - transaction.shares < 0) {
+					res.send(402);
+					return;
+				}
+
+				portfolio.balance += transaction.shares * transaction.price
+				portfolio.transactions.push(transaction);
+				var found = false;
+				portfolio.totals.forEach(function(v, k){
+					if(v.name == transaction.name){
+						v.shares -= transaction.shares;
+						found = true;
+					}
+				});
+				
+				if(!found) {
+					portfolio.totals.push({"name": transaction.name, "shares": transaction.shares});
+				}
+
+				portfolio.save(function(err, portfolio){
+					if(err) console.log(err);
+					else res.json(portfolio);
+				})
+			}
+		})	
+	});
+	
+
 };
 
 exports.history = function(req, res){

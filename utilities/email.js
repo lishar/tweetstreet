@@ -67,6 +67,7 @@ exports = module.exports = function(req, res, options) {
       
       //send email
       var emailjs = require('emailjs/email');
+      console.log(req.app.config.email.credentials );
       var emailer = emailjs.server.connect( req.app.config.email.credentials );
       emailer.send({
         from: options.from,

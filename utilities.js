@@ -8,16 +8,17 @@ exports = module.exports = function(app) {
   //create utility object in app
   app.utility = {};
   
-  //setup utilities
-  app.utility.email = require('./utilities/email');
-  app.logger = require('./utilities/logger');
-  app.utility.uid = uid;
-  app.utility.getRandomInt = getRandomInt;
   // get config
   var konphyg = require('konphyg')(__dirname + '/conf');
   var config = konphyg.all();
   app.config = config;
 
+
+  //setup utilities
+  app.utility.email = require('./utilities/email');
+  app.logger = require('./utilities/logger');
+  app.utility.uid = uid;
+  app.utility.getRandomInt = getRandomInt;
 
 }
 

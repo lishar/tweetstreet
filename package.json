@@ -1,5 +1,5 @@
 {
-  "name": "bucket-api",
+  "name": "twistock-api",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -18,6 +18,13 @@
     "sugar": "*",
     "winston": "*",
     "mongoose": "*",
-    "connect-mongo": "*"
+    "connect-mongo": "*",
+    "emailjs": "*",
+    "async": "*",
+    "passport-google-oauth": "*",
+    "passport-facebook": "*",
+    "passport-local": "0.1.x",
+    "mongoose-tree": "*",
+    "shortid": "*"
   }
 }

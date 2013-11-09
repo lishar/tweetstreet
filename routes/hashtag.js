@@ -44,7 +44,7 @@ exports.price = price = function(req, name, cb) {
 }
 
 exports.priceExternal = priceExternal = function(name, cb) {
-	var child = exec('/Users/keshav/twit/bin/crawl.py ' + name,
+	var child = exec(require('path').resolve(__dirname, '../bin/crawl.py') + ' ' + name,
 		function (error, stdout, stderr) {
 			cb(error, stdout.trim());
 		});

@@ -141,38 +141,41 @@ exports.buy = function(req, res){
 	var transaction = new req.app.db.models.Transaction();
 	transaction.name = req.params.hashtag;
 	transaction.shares = req.query.shares;
-	transaction.price = 10;
+	
 	transaction.type = "buy";
+	hashtag.price(req, req.params.hashtag, function(err, price) {
+		transaction.price = price;
 
-	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
-		if(err) console.log(err);
-		else {
+		req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
+			if(err) console.log(err);
+			else {
 
-			if(portfolio.balance < transaction.shares * transaction.price){
-				res.send(402);
-				return;
-			}
-
-			portfolio.balance -= transaction.shares * transaction.price
-			portfolio.transactions.push(transaction);
-			var found = false;
-			portfolio.totals.forEach(function(v, k){
-				if(v.name == transaction.name){
-					v.shares += transaction.shares;
-					found = true;
+				if(portfolio.balance < transaction.shares * transaction.price){
+					res.send(402);
+					return;
 				}
-			});
-			
-			if(!found) {
-				portfolio.totals.push({"name": transaction.name, "shares": transaction.shares});
-			}		
-			
-			portfolio.save(function(err, portfolio){
-				if(err) console.log(err);
-				else res.json(portfolio);
-			})
-		}
-	})
+
+				portfolio.balance -= transaction.shares * transaction.price
+				portfolio.transactions.push(transaction);
+				var found = false;
+				portfolio.totals.forEach(function(v, k){
+					if(v.name == transaction.name){
+						v.shares += transaction.shares;
+						found = true;
+					}
+				});
+				
+				if(!found) {
+					portfolio.totals.push({"name": transaction.name, "shares": transaction.shares});
+				}		
+				
+				portfolio.save(function(err, portfolio){
+					if(err) console.log(err);
+					else res.json(portfolio);
+				})
+			}
+		})
+	});
 };
 
 exports.sell = function(req, res){

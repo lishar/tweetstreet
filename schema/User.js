@@ -12,11 +12,10 @@ exports = module.exports = function(app, mongoose) {
 		facebook: {},
 		google: {},
 		balance: { type: Number, default: '10000' },
-		assets: [],
+
 		created: {type: Date, default: Date.now}
 	});
-	  
+  
 	app.db.model('User', userSchema);
 }
-
 

@@ -50,12 +50,12 @@ exports = module.exports = function(app, passport) {
 	app.get('/logout', user.logout);
 
 	// API
-	app.get('/user/me', user.info);	
-	app.get('/history', user.history);
+	app.get('/me', login.ensureLoggedIn(), user.info);		
+	app.get('/history', login.ensureLoggedIn(), user.history);
 
-	app.get('/search/:hashtag', ht.search);
-	app.get('/:hashtag/buy', user.buy);
-	app.get('/:hashtag/sell', user.sell);
+	app.get('/search/:hashtag', login.ensureLoggedIn(), ht.search);
+	app.get('/buy/:hashtag', login.ensureLoggedIn(), user.buy);
+	app.get('/sell/:hashtag', login.ensureLoggedIn(), user.sell);
 	app.get('/leaderboard', leaderboard.index);
 
 	// app.param('resource', resource.resource);

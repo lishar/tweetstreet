@@ -132,7 +132,29 @@ exports.logout = function(req, res){
 };
 
 exports.buy = function(req, res){
-  res.render('index', { title: 'Express' });
+	var transaction = new req.app.db.models.Transaction();
+	transaction.name = req.params.hashtag;
+	transaction.shares = req.query.shares;
+	transaction.price = 0;
+	transaction.type = "buy";
+
+	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
+		if(err) console.log(err);
+		else {
+			portfolio.transactions.push(transaction);
+			portfolio.totals.forEach(function(v, k){
+				if(v.name == transaction.name){
+					v.shares += transaction.shares;
+				}
+			});
+			
+			portfolio.save(function(err){
+				if(err) console.log(err);
+				else res.send('done');
+			})
+		}
+
+	})	  
 };
 
 exports.sell = function(req, res){
@@ -143,9 +165,7 @@ exports.history = function(req, res){
   res.render('index', { title: 'Express' });
 };
 
-exports.info = [
-	login.ensureLoggedIn(),
-	function(req, res) {
-		res.json(req.user);
-	}
-]
+exports.info = function(req, res) {
+	res.json(req.user);
+}
+

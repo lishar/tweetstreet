@@ -40,7 +40,14 @@ exports.registerPost = function(req, res){
 						else					
 							res.send(500);
 					} else {
-						res.redirect('/login');
+						portfolio = new req.app.db.models.Portfolio();
+			              portfolio.owner = user._id;
+
+			              portfolio.save(function (err) {
+			                if (err) console.log(err)
+			                res.redirect('/login');
+			              });
+						
 						
 					}
 		})
@@ -280,6 +287,7 @@ exports.profile = function(req, res){
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
+			if(portfolio.totals === undefined) portfolio.totals = [];
 			var results = portfolio.totals.map(function(v, k){
 				if(v.shares > 0){
 					return v;

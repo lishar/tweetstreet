@@ -2,7 +2,7 @@
 html(lang='en')
 	head
 		meta(charset='utf-8')
-		title 'Log In | TweetStreet'
+		title Login | TweetStreet
 		meta(name='description', content='app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav')
 		meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
 		link(rel='stylesheet', href='css/bootstrap.css', type='text/css')
@@ -44,10 +44,10 @@ html(lang='en')
 						form.panel-body(method='post', action='/login')
 							.form-group
 								label.control-label Username
-								input.form-control(placeholder='test@example.com')
+								input.form-control(name="username", placeholder='test@example.com')
 							.form-group
 								label.control-label Password
-								input#inputPassword.form-control(type='password', placeholder='Password')
+								input#inputPassword.form-control(name="password", type='password', placeholder='Password')
 							.checkbox
 								label
 								input(type='checkbox')

@@ -27,7 +27,7 @@ exports = module.exports = function(app, passport) {
 			failureRedirect: '/login'
 		}), function(req, res) {
 	    // Successful authentication, redirect home.
-	    res.redirect('/');
+	    res.redirect('/home');
 	  })	
 	app.get('/auth/google',
 		passport.authenticate('google', {
@@ -42,11 +42,11 @@ exports = module.exports = function(app, passport) {
 			failureRedirect: '/login'
 		}), function(req, res) {
 	    // Successful authentication, redirect home.
-	    res.redirect('/');
+	    res.redirect('/home');
 	  })
 	
 	app.get('/login', user.login);
-	app.post('/login', passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/login' }));
+	app.post('/login', passport.authenticate('local', { successReturnToOrRedirect: '/home', failureRedirect: '/login' }));
 
 	app.get('/logout', user.logout);
 

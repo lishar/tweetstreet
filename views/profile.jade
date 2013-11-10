@@ -16,7 +16,7 @@ block content
 							.col-s-4.bg-success
 								.padder-v
 									span.m-b-xs.h3.block $
-										= portfolio.balance.toFixed(2)
+										= commafy(portfolio.balance.toFixed(2))
 									small.text-muted Balance
 							.col-s-4
 								.padder-v
@@ -77,24 +77,5 @@ block content
 													a(href='/search?q=' + asset.name)= asset.name
 												td= asset.type
 												td= asset.shares
-												td= asset.price
-												td= new Date(asset.created).toString()
-										tr
-											td #b
-											td Sell
-											td ###
-											td $##.##
-											td Nov 09 2013 07:16:23
-										tr
-											td #c
-											td Buy
-											td ###
-											td $##.##
-											td Nov 08 2013 11:51:06
-										tr
-											td #d
-											td Sell
-											td ###
-											td $##.##
-											td Nov 05 2013 08:19:11
-								
+												td= '$' + commafy(asset.price.toFixed(2))
+												td= new Date(asset.created).toString()										

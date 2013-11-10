@@ -14,7 +14,7 @@ block content
 					.row.text-center
 						.col-xs-3.b-r
 							p.h3.font-bold.m-t $
-								=search.price.toFixed(2)
+								= commafy(search.price.toFixed(2))
 							p.text-muted Price
 						.col-xs-3
 							p.h3.font-bold.m-t= search.change.toFixed(2) + '%'

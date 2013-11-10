@@ -35,8 +35,8 @@ require('./models')(app, mongoose);
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.session({
@@ -62,6 +62,10 @@ app.use(function(req, res, next){
 app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.locals.commafy = function (x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 // development only
 if ('development' == app.get('env')) {

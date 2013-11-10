@@ -3,7 +3,7 @@ var util = require('util'),
     exec = require('child_process').exec;	
 
 exports.stock = function(req, res){
-	console.log(req.query.q);
+	req.query.q.replace("#",'').replace(" ",'');
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
@@ -43,7 +43,7 @@ exports.stock = function(req, res){
 						  	portfolio.totals.forEach(function(v){
 						  		if(v.name == req.query.q) search.total = v.shares;
 						  	})
-						  	res.render('stock', { title: 'Search | TweetSt', search: search });
+						  	res.render('stock', { title: 'Search | TweetStreet', search: search });
 						});
 					  });
 					});

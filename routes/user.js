@@ -257,7 +257,7 @@ exports.sell = function(req, res){
 };
 
 exports.history = function(req, res){
-  res.render('index', { title: 'History | TweetSt' });
+  res.render('index', { title: 'History | TweetStreet' });
 };
 
 exports.info = function(req, res) {
@@ -269,7 +269,7 @@ exports.home = function(req, res){
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
-			res.render('profile', { title: 'Profile | TweetSt', portfolio: portfolio, isHome: true});
+			res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio, isHome: true});
 		}
 	})	
 };
@@ -278,12 +278,12 @@ exports.profile = function(req, res){
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
-			res.render('profile', { title: 'Profile | TweetSt', portfolio: portfolio, isProfile: true});
+			res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio, isProfile: true});
 		}
 	})	
 };
 
 
 exports.help = function(req, res){
-  res.render('help', { title: 'Help | TweetSt' });
+  res.render('help', { title: 'Help | TweetStreet' });
 };

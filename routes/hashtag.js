@@ -4,6 +4,7 @@ var util = require('util'),
 
 exports.stock = function(req, res){
 	req.query.q = req.query.q.replace(/#/g,'').replace(/ /g,'');
+	if(req.query.q == '') return res.redirect('/home');
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {

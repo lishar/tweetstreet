@@ -287,6 +287,15 @@ exports.profile = function(req, res){
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
+			portfolio.transactions.sort(function(a, b){
+				var keyA = new Date(a.created),
+				keyB = new Date(b.created);
+				// Compare the 2 dates
+				if(keyA < keyB) return 1;
+				if(keyA > keyB) return -1;
+				return 0;
+			});
+
 			if(portfolio.totals === undefined) portfolio.totals = [];
 			var results = portfolio.totals.map(function(v, k){
 				if(v.shares > 0){

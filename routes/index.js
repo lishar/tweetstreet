@@ -4,7 +4,9 @@
  */
 
 exports.index = function(req, res){
-	console.log(req.user);
-	
-	res.render('index', { title: 'Express'});
+	res.render('help', { title: 'Home | TweetSt' });
+};
+
+exports.about = function(req, res){
+	res.render('about', { title: 'About | TweetSt' });
 };

@@ -1,12 +1,13 @@
 exports = module.exports = function(app, passport) {
 
-	var user = require('./routes/user')
+	var index = require('./routes/index')
+	, user = require('./routes/user')
 	, leaderboard = require('./routes/leaderboard')
 	, ht = require('./routes/hashtag')
 	, login = require('connect-ensure-login');
 
 	//front end
-	app.get('/', login.ensureLoggedIn(), require('./routes/index').index);
+	app.get('/', require('./routes/index').index);
 
 	// Authentication
 	app.get('/register', user.register);
@@ -45,7 +46,7 @@ exports = module.exports = function(app, passport) {
 	  })
 	
 	app.get('/login', user.login);
-	// app.post('/login', passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/login' }));
+	app.post('/login', passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/login' }));
 
 	app.get('/logout', user.logout);
 
@@ -53,12 +54,14 @@ exports = module.exports = function(app, passport) {
 	app.get('/me', login.ensureLoggedIn(), user.info);		
 	app.get('/history', login.ensureLoggedIn(), user.history);
 
-	app.get('/home', user.home);
+	app.get('/home', login.ensureLoggedIn(), user.home);
+	app.get('/about', index.about);
+	app.get('/help', user.help);
 	app.get('/stock', login.ensureLoggedIn(), ht.stock);
 	app.get('/buy/:hashtag', login.ensureLoggedIn(), user.buy);
 	app.get('/sell/:hashtag', login.ensureLoggedIn(), user.sell);
 	app.get('/leaderboard', leaderboard.index);
-	app.get('/profile', user.profile);
+	app.get('/profile', login.ensureLoggedIn(), user.profile);
 
 	// app.param('resource', resource.resource);
 	

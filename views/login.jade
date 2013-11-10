@@ -41,10 +41,10 @@ html(lang='en')
 				.col-md-4.col-md-offset-4.m-t-lg
 					section.panel
 						header.panel-heading.text-center Sign in
-						form.panel-body(action='index.html')
+						form.panel-body(method='post', action='/login')
 							.form-group
-								label.control-label Email
-								input.form-control(type='email', placeholder='test@example.com')
+								label.control-label Username
+								input.form-control(placeholder='test@example.com')
 							.form-group
 								label.control-label Password
 								input#inputPassword.form-control(type='password', placeholder='Password')
@@ -65,7 +65,7 @@ html(lang='en')
 							.line.line-dashed
 							p.text-muted.text-center
 								small Don't have an account?
-							a.btn.btn-white.btn-block(href='signup.html') Create an account
+							a.btn.btn-white.btn-block(href='/register') Create an account
 	
 
 			footer#footer(style="color:white")

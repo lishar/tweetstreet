@@ -11,7 +11,7 @@ exports.index = function(req, res){
 		for(var i = 0; i < pf.length; i++){
 			lb.push({'name': pf[i].owner.name, 'balance': pf[i].balance})
 		}
-		res.render('leaderboard', { title: 'Leaderboard | TweetStreet', isLeaderboard: true});
+		res.render('leaderboard', { title: 'Leaderboard | TweetSt', isLeaderboard: true});
 	});
 
 };

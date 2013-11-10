@@ -40,11 +40,10 @@ exports.stock = function(req, res){
 						 	 	search.totalLifetime = 0;
 						  		if(cache) search.totalLifetime = cache.value;
 
-						  		portfolio.totals.forEach(function(v){
-						  			if(v.name == req.query.q) search.total = v.shares;
-						  		})
-						  		res.render('stock', { title: 'Search | TweetStreet', search: search });
-						  	});
+						  	portfolio.totals.forEach(function(v){
+						  		if(v.name == req.query.q) search.total = v.shares;
+						  	})
+						  	res.render('stock', { title: 'Search | TweetSt', search: search });
 						});
 					  });
 				}

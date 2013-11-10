@@ -40,7 +40,6 @@ block content
 											th Hashtag
 											th Shares
 											th Current Price
-											th(width='70')
 									tbody
 										each asset, i in results
 											tr
@@ -48,9 +47,6 @@ block content
 													a(href='/stock?q=' + asset.name)= asset.name
 												td= asset.shares
 												td= '$' + commafy(prices[i].price.toFixed(2))
-												td.text-success
-													i.icon-level-up
-													| 2%
 				#tab2.tab-pane
 					section.vbox
 						.wrapper

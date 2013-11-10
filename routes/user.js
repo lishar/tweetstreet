@@ -45,6 +45,7 @@ exports.registerPost = function(req, res){
 
 			              portfolio.save(function (err) {
 			                if (err) console.log(err)
+		                	req.flash('success', 'Successfully registered!')
 			                res.redirect('/login');
 			              });
 						
@@ -120,7 +121,7 @@ exports.resendRegisterEmailPost = function(req, res){
 }
 
 exports.login = function(req, res){
-	res.render('login');
+	res.render('login', {title: 'Login | TweetStreet', flasherror: req.flash('error'), flashsuccess: req.flash('success')});
 };
 
 exports.logout = function(req, res){

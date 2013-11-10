@@ -42,6 +42,8 @@ html(lang='en')
 					section.panel
 						header.panel-heading.text-center Sign in
 						form.panel-body(method='post', action='/login')
+							span(style="color:#E03737;")= flasherror
+							span(style="color:#03C70A;")= flashsuccess
 							.form-group
 								label.control-label Username
 								input.form-control(name="username", placeholder='test@example.com')

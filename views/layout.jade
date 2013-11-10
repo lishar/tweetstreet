@@ -43,10 +43,14 @@ html(lang='en')
 							a.nav-brand.aside.pull-left(href=(user ? '/home' : '/'))
 								img(src='/images/logo.png')
 							ul.nav.navbar-nav.m-l-n
-								li(class=(isHome ? 'active': ''))
-									a(href='/home') Home
-								li(class=(isProfile ? 'active': ''))
-									a(href='/profile') Profile
+								if(user)
+									li(class=(isHome ? 'active': ''))
+										a(href='/home') Home
+									li(class=(isProfile ? 'active': ''))
+										a(href='/profile') Profile
+								else
+									li(class=(isProfile ? 'active': ''))
+										a(href='/login') Play
 								li(class=(isLeaderboard ? 'active': ''))
 									a(href='/leaderboard') Leaderboard
 								li(class=(isAbout ? 'active': ''))

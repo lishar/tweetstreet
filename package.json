@@ -28,6 +28,7 @@
     "mongoose-tree": "*",
     "shortid": "*",
     "node-twitter": "*",
-    "moment": "*"
+    "moment": "*",
+    "connect-flash": "*"
   }
 }

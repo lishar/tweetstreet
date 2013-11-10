@@ -11,6 +11,7 @@ var express = require('express')
   , MongoStore = require('connect-mongo')(express)
   , path = require('path');
 
+var flash = require('connect-flash');
 
 // get config
 var konphyg = require('konphyg')(__dirname + '/conf/');
@@ -70,6 +71,7 @@ app.use(function(req, res, next){
   }   
   next()
 })
+app.use(flash());
 app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));

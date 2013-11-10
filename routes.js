@@ -46,7 +46,7 @@ exports = module.exports = function(app, passport) {
 	  })
 	
 	app.get('/login', user.login);
-	app.post('/login', passport.authenticate('local', { successReturnToOrRedirect: '/home', failureRedirect: '/login' }));
+	app.post('/login', passport.authenticate('local', { failureFlash: true, successReturnToOrRedirect: '/home', failureRedirect: '/login' }));
 
 	app.get('/logout', user.logout);
 

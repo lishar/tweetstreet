@@ -35,7 +35,7 @@ exports.stock = function(req, res){
 
 						  	req.app.db.models.Cache.findOne({name: req.query.q + '#pastTotal'}, function(err, pastCache){
 						  		if(err) res.send(500);
-						  		var pastInflation = parseInt(search.trend[search.trend.length-2][1]) * (1 + (0.005 * parseInt(pastCache.value)));
+						  		var pastInflation = parseInt(search.trend[search.trend.length-2][1]) * (1 + (0.001 * parseInt(pastCache.value)));
 								var pastPrice = ((parseInt(search.trend[search.trend.length-2][1]) + pastInflation)/2)/100;
 						  		search.change = (price - pastPrice)/price * 100;
 
@@ -68,9 +68,8 @@ exports.price = price = function(req, name, cb) {
 		var price = count;
 		totalPurchased(req, name, function(err, totalPurchased){
 			if(err) res.send(500);
-			var inflation = price * (1 + (0.005 * totalPurchased));			
-			price = ((price + inflation)/2)/100;
-			cb(null, price);	
+			var inflation = price * (1 + (0.001 * totalPurchased)) / 100;
+			cb(null, inflation);	
 		})					
 	});
 }

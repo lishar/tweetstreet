@@ -20,8 +20,8 @@ block content
 									small.text-muted Balance
 							.col-s-4
 								.padder-v
-									span.m-b-xs.h3.block= portfolio.totals.length
-									small.text-muted= (portfolio.totals.length > 1 ? 'Hashtags' : 'Hashtag')
+									span.m-b-xs.h3.block= results.length
+									small.text-muted= (results.length > 1 ? 'Hashtags' : 'Hashtag')
 		aside.bg-white-only
 			header.bg-light
 				ul.nav.nav-tabs
@@ -42,12 +42,12 @@ block content
 											th Current Price
 											th(width='70')
 									tbody
-										each asset, i in portfolio.totals
+										each asset, i in results
 											tr
 												td
 													a(href='/stock?q=' + asset.name)= asset.name
 												td= asset.shares
-												td= '$' + commafy(totals[i].price.toFixed(2))
+												td= '$' + commafy(prices[i].price.toFixed(2))
 												td.text-success
 													i.icon-level-up
 													| 2%
@@ -67,7 +67,7 @@ block content
 										for asset in portfolio.transactions
 											tr
 												td
-													a(href='/search?q=' + asset.name)= asset.name
+													a(href='/stock?q=' + asset.name)= asset.name
 												td= asset.type
 												td= asset.shares
 												td= '$' + commafy(asset.price.toFixed(2))

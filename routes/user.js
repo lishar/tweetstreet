@@ -271,7 +271,7 @@ exports.home = function(req, res){
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
-			res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio, isHome: true});
+			res.render('index', { title: 'Home | TweetStreet', portfolio: portfolio, isHome: true});
 		}
 	})	
 };
@@ -280,20 +280,26 @@ exports.profile = function(req, res){
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
-			var results = [];
-			async.each(portfolio.totals, 					
+			var results = portfolio.totals.map(function(v, k){
+				if(v.shares > 0){
+					return v;
+				}
+			}).compact();
+			var prices = [];
+			async.each(results, 					
 					function(item, callback){
 						hashtag.price(req, item.name, function(err, price){
 							if(err) callback(err);
-							results.push({name: item.name, price: price});
+							prices.push({name: item.name, price: price});
 							callback(null);							
 						});
 						
 					}
 			,			
 			function(err){
-				console.log(results);
-				res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio, totals: results, isProfile: true});
+				console.log();
+				console.log(prices);
+				res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio, results: results, prices: prices, isProfile: true});
 			});
 
 			

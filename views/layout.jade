@@ -32,6 +32,7 @@ html(lang='en')
 			script(src='js/ie/html5.js', cache='false')
 			script(src='js/ie/fix.js', cache='false')
 		script(src='js/jquery.min.js')
+		block head
 			
 	body
 		section.hbox.stretch(style="position: fixed; top:0; left: 0;")	
@@ -76,9 +77,8 @@ html(lang='en')
 										
 
 					section#pjax-container.scrollable
-						.wrapper
+						.wrapper(style="height:100%;")
 							block content
-
 			
 			script(src='js/jquery.min.js')
 			script(src='js/bootstrap.js')

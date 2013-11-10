@@ -33,6 +33,10 @@ exports.registerPost = function(req, res){
 		user.status = "active";
 		user.verify = req.app.utility.uid(32);
 
+		if(user.email == "" || req.body.password = "") {
+			req.flash('error', 'Please fill in all the fields!')
+            res.redirect('/login');
+		}
 		user.save(function(err, user){
 			if(err) { 
 						if(err.code === 11000)

@@ -1,0 +1,74 @@
+extends layout
+block content
+
+	section.panel
+		header.panel-heading.font-bold Leaderboard
+			.panel-body
+				.table-responsive
+					table#MyStretchGrid.table.table-striped.datagrid.m-b-sm
+						thead
+							tr
+								th
+									.row
+										.col-sm-8.m-t-xs.m-b-xs
+											.select.filter(data-resize='auto')
+												button.btn.btn-sm.btn-white.dropdown-toggle(data-toggle='dropdown')
+													span.dropdown-label
+													span.caret
+												ul.dropdown-menu
+													li(data-value='all', data-selected='true')
+														a(href='#') All
+													li(data-value='lt5m')
+														a(href='#') Population < 5M
+													li(data-value='gte5m')
+														a(href='#') Population >= 5M
+										.col-sm-4.m-t-xs.m-b-xs
+											.input-group.search.datagrid-search
+												input.input-sm.form-control(type='text', placeholder='Search')
+												.input-group-btn
+													button.btn.btn-white.btn-sm
+														i.icon-search
+						tfoot
+							tr
+								th.row
+									.datagrid-footer-left.col-sm-6.text-center-xs.m-l-n(style='display: none;')
+										.grid-controls.m-t-sm
+											span
+												span.grid-start
+												| -
+												span.grid-end
+												| of
+												span.grid-count
+											.select.grid-pagesize.dropup(data-resize='auto')
+												button.btn.btn-sm.btn-white.dropdown-toggle(data-toggle='dropdown')
+													span.dropdown-label
+													span.caret
+												ul.dropdown-menu
+													li(data-value='5')
+														a(href='#') 5
+													li(data-value='10')
+														a(href='#') 10
+													li(data-value='20', data-selected='true')
+														a(href='#') 20
+													li(data-value='50')
+														a(href='#') 50
+													li(data-value='100')
+														a(href='#') 100
+											span Per Page
+									.datagrid-footer-right.col-sm-6.text-right.text-center-xs(style='display: none;')
+										.grid-pager.m-r-n
+											button.btn.btn-sm.btn-white.grid-prevpage(type='button')
+												i.icon-chevron-left
+											span Page
+											.inline
+												.input-group.dropdown.combobox
+													input.input-sm.form-control(type='text')
+													.input-group-btn.dropup
+														button.btn.btn-sm.btn-white(data-toggle='dropdown')
+															i.caret
+														ul.dropdown-menu.pull-right
+											span
+												| of
+												span.grid-pages
+											button.btn.btn-sm.btn-white.grid-nextpage(type='button')
+												i.icon-chevron-right

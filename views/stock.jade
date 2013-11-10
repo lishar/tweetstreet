@@ -1,0 +1,157 @@
+extends layout
+
+block content
+	header
+		.row.b-b.m-l-none.m-r-none
+				.col-sm-4
+					h3.m-t.m-b-none #
+						= search.q
+					p
+		.wrapper
+			section.panel
+				header.panel-heading.font-bold Latest Stats
+				.panel-body
+					.row.text-center
+						.col-xs-3.b-r
+							p.h3.font-bold.m-t $
+								=search.price.toFixed(2)
+							p.text-muted Price
+						.col-xs-3
+							p.h3.font-bold.m-t= search.change.toFixed(2) + '%'
+							p.text-muted Percent Change
+						.col-xs-3.b-r
+							p.h3.font-bold.m-t= search.total
+							p.text-muted Your Shares
+						.col-xs-3.b-r
+							p.h3.font-bold.m-t= search.totalLifetime
+							p.text-muted Total Shares
+		.wrapper
+			section.hbox
+				aside.bg-white-only
+					header.bg-light
+						ul.nav.nav-tabs
+							li.active
+								a(href='#tab1', data-toggle='tab') History
+							li
+								a(href='#tab2', data-toggle='tab') Buy/Sell
+					.tab-content
+						#tab1.tab-pane.active							
+							section.vbox
+								.wrapper
+									section.panel
+										header.panel-heading.font-bold Last Month
+										.panel-body
+											#flot-color(style='height: 250px;')
+						#tab2.tab-pane
+							section.vbox
+								.panel
+									header.panel-heading.font-bold What to do?
+									.panel-body
+										.form-group
+											label.col-sm-2.control-label Transaction?
+											.col-sm-10
+												.btn-group.m-r
+													button.btn.btn-sm.btn-white.dropdown-toggle(data-toggle='dropdown')
+														span.dropdown-label Buy
+														span.caret(style="margin-left: 4px;")
+													ul.dropdown-menu.dropdown-select
+														li
+															a(href='#')
+																input(type='radio', name='d-s-r', checked='')
+																| Buy
+														li
+															a(href='#')
+																input(type='radio', name='d-s-r')
+																| Sell
+												.inline.v-middle
+													.input-group.input-s-sm
+														input#appendedInput.input-sm.form-control(type='text')
+												a.btn.btn-s-md.btn-success(href='#') Go!
+				aside.b-l.aside-xl.bg-light
+					section.wrapper
+						#accordion2.panel-group.m-b
+							.panel
+								.panel-heading
+									a.accordion-toggle(data-toggle='collapse', data-parent='#accordion2', href='#collapseOne')
+										| Twitter Feed #1 etc.?
+								#collapseOne.panel-collapse.in
+									.panel-body.text-sm
+										| Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt.
+							.panel
+								.panel-heading
+									a.accordion-toggle(data-toggle='collapse', data-parent='#accordion2', href='#collapseTwo')
+										| Collapsible Group Item #2
+								#collapseTwo.panel-collapse.collapse
+									.panel-body.text-sm
+										| Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+							.panel
+								.panel-heading
+									a.accordion-toggle(data-toggle='collapse', data-parent='#accordion2', href='#collapseThree')
+										| Collapsible Group Item #3
+								#collapseThree.panel-collapse.collapse
+									.panel-body.text-sm
+										| Sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+
+	script
+		$(function(){
+
+			var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			var d1 = [];
+			for (var i = 0; i <= 11; i += 1) {
+				d1.push(["A" + i, parseInt((Math.floor(Math.random() * (1 + 20 - 10))) + 10)]);
+			}
+			console.log(d1);
+			d1 = !{JSON.stringify(search.trend)};
+			var plot = $.plot($("#flot-color"), [{
+					data: d1
+				}], 
+				{
+					series: {
+						lines: {
+							show: true,
+							lineWidth: 2,
+							fill: true,
+							fillColor: {
+								colors: [{
+									opacity: 0.0
+								}, {
+									opacity: 0.2
+								}]
+							}
+						},
+						points: {
+							radius: 5,
+							show: true
+						},
+						shadowSize: 2
+					},
+					grid: {
+						color: "#fff",
+						hoverable: true,
+						clickable: true,
+						tickColor: "#f0f0f0",
+						borderWidth: 0
+					},
+					colors: ["#5dcff3"],
+					xaxis: {
+						mode: "categories",
+						tickDecimals: 0
+					},
+					yaxis: {
+						ticks: 5,
+						tickDecimals: 0,
+					},
+					tooltip: true,
+					tooltipOpts: {
+					content: "%y.4",
+					defaultTheme: false,
+					shifts: {
+						x: 0,
+						y: 20
+					}
+					}
+				}
+			);
+
+
+			});

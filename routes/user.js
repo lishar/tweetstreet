@@ -284,6 +284,7 @@ exports.home = function(req, res){
 };
 
 exports.profile = function(req, res){
+	var portfolio = null;
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
@@ -314,9 +315,12 @@ exports.profile = function(req, res){
 					}
 			,			
 			function(err){
-				console.log();
-				console.log(prices);
-				res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio, results: results, prices: prices, isProfile: true});
+				var data = {}
+				data.portfolio = portfolio
+				data.results = results;
+				data.prices = prices;
+				console.log(data);
+				res.render('profile', { title: 'Profile | TweetStreet', data: data, isProfile: true});
 			});
 
 			

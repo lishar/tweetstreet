@@ -49,7 +49,7 @@ exports.stock = function(req, res){
 							  	})
 							  	req.app.twitter.search({'q': '#' + req.query.q}, function(error, feed) {
 							  		if(error) res.send(500);
-							  		console.log(feed);
+							  		// console.log(feed);
 							  		res.render('stock', { title: 'Search | TweetStreet', search: search , feed: feed});
 							  	});
 							});

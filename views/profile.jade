@@ -7,7 +7,7 @@ block content
 					.panel-body
 						.clearfix.text-center.m-t
 							.inline
-								.easypiechart(data-percent=portfolio.balance*100/portfolio.maxBalance, data-line-width='5', data-loop='false', data-bar-color='#92cf5c', data-track-color='#f5f5f5', data-scale-color='false', data-size='150')
+								.easypiechart(data-percent=data.portfolio.balance*100/data.portfolio.maxBalance, data-line-width='5', data-loop='false', data-bar-color='#92cf5c', data-track-color='#f5f5f5', data-scale-color='false', data-size='150')
 									.thumb-lg
 										img.img-circle(src=user.image)
 								.h4.m-t.m-b-xs= user.name
@@ -16,12 +16,12 @@ block content
 							.col-s-4.bg-success
 								.padder-v
 									span.m-b-xs.h3.block $
-										= commafy(portfolio.balance.toFixed(2))
+										= commafy(data.portfolio.balance.toFixed(2))
 									small.text-muted Balance
 							.col-s-4
 								.padder-v
-									span.m-b-xs.h3.block= results.length
-									small.text-muted= (results.length > 1 ? 'Hashtags' : 'Hashtag')
+									span.m-b-xs.h3.block= data.results.length
+									small.text-muted= (data.results.length > 1 ? 'Hashtags' : 'Hashtag')
 		aside.bg-white-only
 			header.bg-light
 				ul.nav.nav-tabs
@@ -41,12 +41,12 @@ block content
 											th Shares
 											th Current Price
 									tbody
-										each asset, i in results
+										each asset, i in data.results
 											tr
 												td
-													a(href='/stock?q=' + asset.name)= asset.name
+													a(href='/stock?q=' + asset.name, style="color: #5dcff3;")= asset.name
 												td= asset.shares
-												td= '$' + commafy(prices[i].price.toFixed(2))
+												td= '$' + commafy(data.prices[i].price.toFixed(2))
 				#tab2.tab-pane
 					section.vbox
 						.wrapper
@@ -60,10 +60,10 @@ block content
 											th Price
 											th Time
 									tbody
-										for asset in portfolio.transactions
+										for asset in data.portfolio.transactions
 											tr
 												td
-													a(href='/stock?q=' + asset.name)= asset.name
+													a(href='/stock?q=' + asset.name, style="color: #5dcff3;")= asset.name
 												td= asset.type
 												td= asset.shares
 												td= '$' + commafy(asset.price.toFixed(2))

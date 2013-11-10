@@ -2,19 +2,17 @@ extends layout
 block content
 
 	section.panel
-		header.panel-heading.font-bold Leaderboard
-			.panel-body
-				.table-responsive
-					table.table.table-striped.b-t.text-sm
-						thead
-							tr								
-								th(width='50%') Project
-								th(width='25%') Balance
-								th(width='25%') Member Since
-						tbody
-							for leader in leaders
-								tr							
-									td= leader.name
-									td= '$' + commafy(leader.balance.toFixed(2))
-									td= Date.create(leader.since).format('{Month} {d}, {yyyy}')
+		.panel-body
+			table.table.table-striped.m-b-none.text-sm
+				thead
+					tr								
+						th(width='50%') Member
+						th(width='25%') Balance
+						th(width='25%') Member Since
+				tbody
+					for leader in leaders
+						tr							
+							td= leader.name
+							td= '$' + commafy(leader.balance.toFixed(2))
+							td= Date.create(leader.since).format('{Month} {d}, {yyyy}')
 							

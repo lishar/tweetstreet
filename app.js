@@ -51,6 +51,11 @@ app.use(express.methodOverride());
 app.use(function(req, res, next){
   if(req.user){
     res.locals.user = req.user;
+    if(req.user.provider == "google" && req.user.google.picture) {
+      res.locals.user.image = req.user.google.picture;
+    } else if(req.user.provider == "facebook") {
+      res.locals.user.image = 'http://graph.facebook.com/' + req.user.facebook.username + '/picture';
+    } 
   }   
   next()
 })

@@ -1,7 +1,88 @@
-doctype 5
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+!!! 5
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		title= title
+		meta(name='description', content='app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav')
+		meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+		link(rel='stylesheet', href='css/bootstrap.css', type='text/css')
+		link(rel='stylesheet', href='css/animate.css', type='text/css')
+		link(rel='stylesheet', href='css/font-awesome.min.css', type='text/css')
+		link(rel='stylesheet', href='css/font.css', type='text/css', cache='false')
+		link(rel='stylesheet', href='css/plugin.css', type='text/css')
+		link(rel='stylesheet', href='css/app.css', type='text/css')
+		//if lt IE 9
+			script(src='js/ie/respond.min.js', cache='false')
+			script(src='js/ie/html5.js', cache='false')
+			script(src='js/ie/fix.js', cache='false')
+		//if lt IE 9
+			script(src='js/ie/respond.min.js', cache='false')
+			script(src='js/ie/html5.js', cache='false')
+			script(src='js/ie/fix.js', cache='false')
+		//if lt IE 9
+			script(src='js/ie/respond.min.js', cache='false')
+			script(src='js/ie/html5.js', cache='false')
+			script(src='js/ie/fix.js', cache='false')
+		//if lt IE 9
+			script(src='js/ie/respond.min.js', cache='false')
+			script(src='js/ie/html5.js', cache='false')
+			script(src='js/ie/fix.js', cache='false')
+		//if lt IE 9
+			script(src='js/ie/respond.min.js', cache='false')
+			script(src='js/ie/html5.js', cache='false')
+			script(src='js/ie/fix.js', cache='false')
+		script(src='js/jquery.min.js')
+			
+	body
+		section.hbox.stretch		
+			section#content
+				section.vbox
+					header.header.bg-black.navbar.navbar-inverse
+						.collapse.navbar-collapse.pull-in
+							ul.nav.navbar-nav.m-l-n
+								li.active
+									a(href='/profile') Dashboard
+								li
+									a(href='/leaderboard') Leaderboard
+								
+							form.navbar-form.navbar-left.m-t-sm(action='/search', role='search', style="margin-left:15px;")
+								.form-group
+									.input-group.input-s
+										input.form-control.input-sm.no-border.bg-dark(type='text', name='q', placeholder='Search')
+										span.input-group-btn
+											button.btn.btn-sm.btn-success.btn-icon(type='submit')
+												i.icon-search
+							ul.nav.navbar-nav.navbar-right							
+								li.dropdown
+									a.dropdown-toggle(href='#', data-toggle='dropdown')
+										span.thumb-sm.avatar.pull-left.m-t-n-xs.m-r-xs
+											img(src=user.image)
+										= user.name
+										b.caret
+									ul.dropdown-menu.animated.fadeInLeft
+										li
+											a(href='#') Settings
+										li
+											a(href='profile') Profile										
+										li
+											a(href='about') About
+										li
+											a(href='logout') Logout
+
+					section#pjax-container.scrollable
+						.wrapper
+							block content
+
+			
+			script(src='js/jquery.min.js')
+			script(src='js/bootstrap.js')
+			script(src='js/charts/sparkline/jquery.sparkline.min.js')
+			script(src='js/app.js')
+			script(src='js/app.plugin.js')
+			script(src='js/app.data.js')
+			script(src='js/libs/jquery.pjax.js', cache='false')
+			script(src='js/charts/sparkline/jquery.sparkline.min.js')
+			script(src='js/charts/easypiechart/jquery.easy-pie-chart.js')
+			script(src='js/select2/select2.min.js', cache='false')
+			script(src='js/charts/morris/raphael-min.js', cache='false')
+			script(src='js/charts/morris/morris.min.js', cache='false')

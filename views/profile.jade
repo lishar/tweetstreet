@@ -1,0 +1,100 @@
+extends layout
+block content
+	section.hbox
+		aside.b-l.aside-xl.bg-light
+			section.wrapper
+				section.panel
+					.panel-body
+						.clearfix.text-center.m-t
+							.inline
+								.easypiechart(data-percent='100', data-line-width='5', data-loop='false', data-bar-color='#92cf5c', data-track-color='#f5f5f5', data-scale-color='false', data-size='150')
+									.thumb-lg
+										img.img-circle(src=user.image)
+								.h4.m-t.m-b-xs= user.name
+					footer.panel-footer.bg-dark.lter.text-center
+						.row.pull-out
+							.col-s-4.bg-success
+								.padder-v
+									span.m-b-xs.h3.block $
+										= portfolio.balance.toFixed(2)
+									small.text-muted Balance
+							.col-s-4
+								.padder-v
+									span.m-b-xs.h3.block= portfolio.totals.length
+									small.text-muted= (portfolio.totals.length > 1 ? 'Hashtags' : 'Hashtag')
+		aside.bg-white-only
+			header.bg-light
+				ul.nav.nav-tabs
+					li.active
+						a(href='#tab1', data-toggle='tab') Portfolio
+					li
+						a(href='#tab2', data-toggle='tab') History
+			.tab-content
+				#tab1.tab-pane.active
+					section.vbox
+						.wrapper
+							section.panel
+								table.table.table-striped.m-b-none.text-sm
+									thead
+										tr
+											th Hashtag
+											th Shares
+											th Current Price
+											th(width='70')
+									tbody
+										for asset in portfolio.totals
+											tr
+												td
+													a(href='/search?q=' + asset.name)= asset.name
+												td= asset.shares
+												td $0
+												td.text-success
+													i.icon-level-up
+													| 2%										
+										tr
+											td #d
+											td ###
+											td $##.##
+											td.text-danger
+												i.icon-level-down
+												| 20%												
+				#tab2.tab-pane
+					section.vbox
+						.wrapper
+							section.panel
+								table.table.table-striped.m-b-none.text-sm
+									thead
+										tr
+											th Hashtag
+											th Transaction
+											th Shares
+											th Price
+											th Time
+									tbody
+										for asset in portfolio.transactions
+											tr
+												td
+													a(href='/search?q=' + asset.name)= asset.name
+												td= asset.type
+												td= asset.shares
+												td= asset.price
+												td= new Date(asset.created).toString()
+										tr
+											td #b
+											td Sell
+											td ###
+											td $##.##
+											td Nov 09 2013 07:16:23
+										tr
+											td #c
+											td Buy
+											td ###
+											td $##.##
+											td Nov 08 2013 11:51:06
+										tr
+											td #d
+											td Sell
+											td ###
+											td $##.##
+											td Nov 05 2013 08:19:11
+								

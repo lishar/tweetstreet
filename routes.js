@@ -53,10 +53,11 @@ exports = module.exports = function(app, passport) {
 	app.get('/me', login.ensureLoggedIn(), user.info);		
 	app.get('/history', login.ensureLoggedIn(), user.history);
 
-	app.get('/search/:hashtag', login.ensureLoggedIn(), ht.search);
+	app.get('/search', login.ensureLoggedIn(), ht.search);
 	app.get('/buy/:hashtag', login.ensureLoggedIn(), user.buy);
 	app.get('/sell/:hashtag', login.ensureLoggedIn(), user.sell);
 	app.get('/leaderboard', leaderboard.index);
+	app.get('/profile', user.profile);
 
 	// app.param('resource', resource.resource);
 	

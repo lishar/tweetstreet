@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Web Application | todo</title>
+  <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="css/animate.css" type="text/css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="js/select2/select2.css" type="text/css" />
+  <link rel="stylesheet" href="js/fuelux/fuelux.css" type="text/css" />
+  <link rel="stylesheet" href="css/font.css" type="text/css" cache="false" />
+  <link rel="stylesheet" href="css/plugin.css" type="text/css" />
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+    
+  <!--[if lt IE 9]>
+    <script src="js/ie/respond.min.js" cache="false"></script>
+    <script src="js/ie/html5.js" cache="false"></script>
+    <script src="js/ie/fix.js" cache="false"></script>
+  <![endif]-->
+</head>
+<body>
+  <section class="hbox stretch">
+    <!-- .vbox -->
+    <section id="content">
+      <section class="vbox">
+        <header class="header bg-black navbar navbar-inverse">
+          <div class="collapse navbar-collapse pull-in">
+            <ul class="nav navbar-nav m-l-n">
+              <li class="active"><a href="#">Dashboard</a></li>
+              <li><a href="pjax" data-pjax data-target="#pjax-container">Pjax</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="navbar-form navbar-left m-t-sm" role="search">
+              <div class="form-group">
+                <div class="input-group input-s">
+                  <input type="text" class="form-control input-sm no-border bg-dark" placeholder="Search">
+                  <span class="input-group-btn">
+                    <button type="submit" class="btn btn-sm btn-success btn-icon"><i class="icon-search"></i></button>
+                  </span>
+                </div>
+              </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="hidden-xs">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="icon-bell-alt text-white"></i>
+                  <span class="badge up bg-info m-l-n-sm">2</span>
+                </a>
+                <section class="dropdown-menu animated fadeInUp input-s-lg">
+                  <section class="panel bg-white">
+                    <header class="panel-heading">
+                      <strong>You have <span class="count-n">2</span> notifications</strong>
+                    </header>
+                    <div class="list-group">
+                      <a href="#" class="media list-group-item">
+                        <span class="pull-left thumb-sm">
+                          <img src="images/avatar.jpg" alt="John said" class="img-circle">
+                        </span>
+                        <span class="media-body block m-b-none">
+                          Use awesome animate.css<br>
+                          <small class="text-muted">28 Aug 13</small>
+                        </span>
+                      </a>
+                      <a href="#" class="media list-group-item">
+                        <span class="media-body block m-b-none">
+                          1.0 initial released<br>
+                          <small class="text-muted">27 Aug 13</small>
+                        </span>
+                      </a>
+                    </div>
+                    <footer class="panel-footer text-sm">
+                      <a href="#" class="pull-right"><i class="icon-cog"></i></a>
+                      <a href="#">See all the notifications</a>
+                    </footer>
+                  </section>
+                </section>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span class="thumb-sm avatar pull-left m-t-n-xs m-r-xs">
+                    <img src="images/avatar.jpg">
+                  </span>
+                  John.Smith <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu animated fadeInLeft">
+                  <li>
+                    <a href="#">Settings</a>
+                  </li>
+                  <li>
+                    <a href="profile.html">Profile</a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="badge bg-danger pull-right">3</span>
+                      Notifications
+                    </a>
+                  </li>
+                  <li>
+                    <a href="docs.html">Help</a>
+                  </li>
+                  <li>
+                    <a href="signin.html">Logout</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </header>
+        <section class="scrollable" id="pjax-container">
+            <div class="wrapper">
+                    <section class="panel">
+                        <header class="panel-heading font-bold">Current Stats</header>
+                        <div class="panel-body">
+                    <div class="row text-center">
+
+                      <!-- STATS -->
+                      <div class="col-xs-3 b-r">
+                        <p class="h3 font-bold m-t">$10,000.00</p>
+                        <p class="text-muted">Balance</p>
+                      </div>
+                      <div class="col-xs-3 b-r">
+                        <p class="h3 font-bold m-t">13</p>
+                        <p class="text-muted">Hashtags Owned</p>
+                      </div>
+                      <div class="col-xs-3 b-r">
+                        <p class="h3 font-bold m-t">#</p>
+                        <p class="text-muted">Name</p>
+                      </div>
+                      <div class="col-xs-3 b-r">
+                        <p class="h3 font-bold m-t">#</p>
+                        <p class="text-muted">Name</p>                        
+                      </div>
+                      <!-- END STATS -->
+
+                    </div>
+                  </footer>
+                  </section>
+                </div>
+            <div class="wrapper">
+          <section  class="hbox">
+            <aside class="bg-white-only">
+              <header class="bg-light">
+                <ul class="nav nav-tabs">                  
+                  <li class="active"><a href="#tab1" data-toggle="tab">Portfolio</a></li>
+                  <li class=""><a href="#tab2" data-toggle="tab">History</a></li>
+                </ul>
+              </header>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                  <section class="vbox">
+                      <div class="wrapper">
+                          <section class="panel">
+
+                            <!-- PORTFOLIO -->
+                            <table class="table table-striped m-b-none text-sm">
+                      <thead>
+                        <tr>
+                          <th>Hashtag</th>
+                          <th>Shares</th>
+                          <th>Current Price</th>                   
+                          <th width="70"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>                    
+                          <td>#a</td>
+                          <td>###</td>
+                          <td>$##.##</td>
+                          <td class="text-success">
+                            <i class="icon-level-up"></i> 40%
+                          </td>
+                        </tr>
+                        <tr>                    
+                          <td>#b</td>
+                          <td>###</td>
+                          <td>$##.##</td>
+                          <td class="text-success">
+                            <i class="icon-level-up"></i> 5%
+                          </td>
+                        </tr>
+                        <tr>                    
+                          <td>#c</td>
+                          <td>###</td>
+                          <td>$##.##</td>
+                          <td class="text-danger">
+                            <i class="icon-level-down"></i> 5%
+                          </td>
+                        </tr>
+                        <tr>                    
+                          <td>#d</td>
+                          <td>###</td>
+                          <td>$##.##</td>
+                          <td class="text-danger">
+                            <i class="icon-level-down"></i> 20%
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- END PORTFOLIO -->
+
+                        </section>
+                  </div>
+                </section>
+                </div>
+                <div class="tab-pane" id="tab2">
+                  <section class="vbox">
+                      <div class="wrapper">
+                          <section class="panel">
+                            
+                            <!-- HISTORY -->
+                            <table class="table table-striped m-b-none text-sm">
+                      <thead>
+                        <tr>
+                          <th>Hashtag</th>
+                          <th>Transaction</th> 
+                          <th>Shares</th>
+                          <th>Price</th>
+                          <th>Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>                    
+                          <td>#a</td>
+                          <td>Buy</td>
+                          <td>###</td>
+                          <td>$##.##</td>
+                          <td>Nov 09 2013 15:20:53</td>
+                        </tr>
+                        <tr>                    
+                          <td>#b</td>
+                          <td>Sell</td>
+                          <td>###</td>
+                          <td>$##.##</td>
+                          <td>Nov 09 2013 07:16:23</td>
+                        </tr>
+                        <tr>                    
+                          <td>#c</td>
+                          <td>Buy</td>
+                          <td>###</td>
+                          <td>$##.##</td>
+                          <td>Nov 08 2013 11:51:06</td>
+                        </tr>
+                        <tr>                    
+                          <td>#d</td>
+                          <td>Sell</td>
+                          <td>###</td>
+                          <td>$##.##</td>
+                          <td>Nov 05 2013 08:19:11</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- END HISTORY -->
+
+                        </section>
+                  </div>
+                </section>
+                </div>
+              </div>
+            </aside>
+            <aside class="b-l aside-xl bg-light">
+              <section class="wrapper">
+                <section class="panel">
+                  <div class="panel-body">
+                    <div class="clearfix text-center m-t">
+                      <div class="inline">
+                        <div class="easypiechart" data-percent="75" data-line-width="5" data-loop="false" data-bar-color="#92cf5c" data-track-Color="#f5f5f5" data-scale-Color="false" data-size="150">
+                          <div class="thumb-lg">
+                            <img src="images/avatar.jpg" class="img-circle">
+                          </div>
+                        </div>
+                        <div class="h4 m-t m-b-xs">John.Smith</div>
+                        <small class="text-muted m-b">Art director</small>
+                      </div>                      
+                    </div>
+                  </div>
+                  <footer class="panel-footer bg-dark lter text-center">
+                    <div class="row pull-out">
+                      <div class="col-xs-4">
+                        <div class="padder-v">
+                          <span class="m-b-xs h4 block">245</span>
+                          <small class="text-muted">Followers</small>
+                        </div>
+                      </div>
+                      <div class="col-xs-4 bg-success">
+                        <div class="padder-v">
+                          <span class="m-b-xs h4 block">55</span>
+                          <small class="text-muted">Following</small>
+                        </div>
+                      </div>
+                      <div class="col-xs-4">
+                        <div class="padder-v">
+                          <span class="m-b-xs h4 block">2,035</span>
+                          <small class="text-muted">Tweets</small>
+                        </div>
+                      </div>
+                    </div>
+                  </footer>
+                </section>
+                  
+                <div class="panel-group m-b" id="accordion2">
+                  <div class="panel">
+                    <div class="panel-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                        Twitter Feed #1 etc.?
+                      </a>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse in">
+                      <div class="panel-body text-sm">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel">
+                    <div class="panel-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                        Collapsible Group Item #2
+                      </a>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                      <div class="panel-body text-sm">
+                        Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel">
+                    <div class="panel-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                        Collapsible Group Item #3
+                      </a>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                      <div class="panel-body text-sm">
+                        Sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>                      
+            </aside>
+          </section>
+                </div>
+        </section>
+      </section>
+      <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+    </section>
+    <!-- /.vbox -->
+  </section>
+	<script src="js/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="js/bootstrap.js"></script>
+  <!-- Sparkline Chart -->
+  <script src="js/charts/sparkline/jquery.sparkline.min.js"></script>
+  <!-- App -->
+  <script src="js/app.js"></script>
+  <script src="js/app.plugin.js"></script>
+  <script src="js/app.data.js"></script>
+  <script src="js/libs/jquery.pjax.js" cache="false"></script>
+  <!-- Sparkline Chart -->
+  <script src="js/charts/sparkline/jquery.sparkline.min.js"></script>
+  <!-- Easy Pie Chart -->
+  <script src="js/charts/easypiechart/jquery.easy-pie-chart.js"></script>
+      <!-- select2 -->
+  <script src="js/select2/select2.min.js" cache="false"></script>
+  <!-- Morris -->
+  <script src="js/charts/morris/raphael-min.js" cache="false"></script>
+  <script src="js/charts/morris/morris.min.js" cache="false"></script>
+    
+</body>
+</html>

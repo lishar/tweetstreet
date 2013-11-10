@@ -34,7 +34,7 @@ exports.stock = function(req, res){
 						  		if(err) res.send(500);
 						  		var pastInflation = parseInt(search.trend[search.trend.length-2][1]) * (1 + (0.005 * parseInt(pastCache.value)));
 								var pastPrice = ((parseInt(search.trend[search.trend.length-2][1]) + pastInflation)/2)/100;
-						  		search.change = (price - pastPrice)/price;
+						  		search.change = (price - pastPrice)/price * 100;
 
 						  		if(isNaN(search.change)) search.change = 0;
 						  		search.total = 0;

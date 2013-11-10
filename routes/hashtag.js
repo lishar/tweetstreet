@@ -3,7 +3,7 @@ var util = require('util'),
     exec = require('child_process').exec;	
 
 exports.stock = function(req, res){
-	req.query.q.replace("#",'').replace(" ",'');
+	req.query.q = req.query.q.replace(/#/g,'').replace(/ /g,'');
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
@@ -36,6 +36,7 @@ exports.stock = function(req, res){
 								var pastPrice = ((parseInt(search.trend[search.trend.length-2][1]) + pastInflation)/2)/100;
 						  		search.change = (price - pastPrice)/price;
 
+						  		if(isNaN(search.change)) search.change = 0;
 						  		search.total = 0;
 						 	 	search.totalLifetime = 0;
 						  		if(cache) search.totalLifetime = cache.value;

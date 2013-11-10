@@ -5,6 +5,7 @@ var passport = require('passport')
 	, oauthorize = require('oauthorize')
 	, login = require('connect-ensure-login')
 	, hashtag = require('./hashtag')
+	, sugar = require('sugar');
 
 
 // create OAuth server

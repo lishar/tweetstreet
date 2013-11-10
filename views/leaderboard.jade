@@ -8,18 +8,13 @@ block content
 					table.table.table-striped.b-t.text-sm
 						thead
 							tr								
-								th.th-sortable(data-toggle='class', width='50%')
-									| Project
-									span.th-sort
-										i.icon-sort-down.text
-										i.icon-sort-up.text-active
-										i.icon-sort
-								th(width='25%') Task
+								th(width='50%') Project
+								th(width='25%') Balance
 								th(width='25%') Member Since
 						tbody
 							for leader in leaders
 								tr							
 									td= leader.name
 									td= '$' + commafy(leader.balance.toFixed(2))
-									td leader.since									
+									td= Date.create(leader.since).format('{Month} {d}, {yyyy}')
 							

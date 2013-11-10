@@ -55,7 +55,8 @@ app.use(function(req, res, next){
       res.locals.user.image = req.user.google.picture;
     } else if(req.user.provider == "facebook") {
       res.locals.user.image = 'http://graph.facebook.com/' + req.user.facebook.username + '/picture';
-    } 
+    }     
+    if(res.locals.user.image == '') res.locals.user.image = '/images/avatar_default.jpg';
   }   
   next()
 })

@@ -42,22 +42,15 @@ block content
 											th Current Price
 											th(width='70')
 									tbody
-										for asset in portfolio.totals
+										each asset, i in portfolio.totals
 											tr
 												td
 													a(href='/stock?q=' + asset.name)= asset.name
 												td= asset.shares
-												td $0
+												td= '$' + commafy(totals[i].price.toFixed(2))
 												td.text-success
 													i.icon-level-up
-													| 2%										
-										tr
-											td #d
-											td ###
-											td $##.##
-											td.text-danger
-												i.icon-level-down
-												| 20%												
+													| 2%
 				#tab2.tab-pane
 					section.vbox
 						.wrapper
@@ -78,4 +71,4 @@ block content
 												td= asset.type
 												td= asset.shares
 												td= '$' + commafy(asset.price.toFixed(2))
-												td= new Date(asset.created).toString()										
+												td= new Date.create(asset.created).format()

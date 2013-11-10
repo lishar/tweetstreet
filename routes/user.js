@@ -5,6 +5,7 @@ var passport = require('passport')
 	, oauthorize = require('oauthorize')
 	, login = require('connect-ensure-login')
 	, hashtag = require('./hashtag')
+	, async = require('async')
 	, sugar = require('sugar');
 
 
@@ -27,22 +28,22 @@ exports.registerPost = function(req, res){
 
 	var user = new req.app.db.models.User();
 	user.email = req.body.email;
-    user.name = req.body.name;
-    user.password = require('crypto').createHash('md5').update(req.body.password).digest("hex");
-    user.status = "active";
-    user.verify = req.app.utility.uid(32);
+		user.name = req.body.name;
+		user.password = require('crypto').createHash('md5').update(req.body.password).digest("hex");
+		user.status = "active";
+		user.verify = req.app.utility.uid(32);
 
-    user.save(function(err, user){
-    	if(err) { 
-            if(err.code === 11000)
-              res.send({'error': 'User already exists'}, 409);
-            else          
-              res.send(500);
-          } else {
-            res.redirect('/login');
-            
-          }
-    })
+		user.save(function(err, user){
+			if(err) { 
+						if(err.code === 11000)
+							res.send({'error': 'User already exists'}, 409);
+						else					
+							res.send(500);
+					} else {
+						res.redirect('/login');
+						
+					}
+		})
 };
 
 
@@ -184,7 +185,7 @@ exports.buy = function(req, res){
 
 exports.sell = function(req, res){
  
-  	if(!req.user) {
+		if(!req.user) {
 		res.send (401);
 		return;
 	}
@@ -258,7 +259,7 @@ exports.sell = function(req, res){
 };
 
 exports.history = function(req, res){
-  res.render('index', { title: 'History | TweetStreet' });
+	res.render('index', { title: 'History | TweetStreet' });
 };
 
 exports.info = function(req, res) {
@@ -279,12 +280,28 @@ exports.profile = function(req, res){
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
-			res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio, isProfile: true});
+			var results = [];
+			async.each(portfolio.totals, 					
+					function(item, callback){
+						hashtag.price(req, item.name, function(err, price){
+							if(err) callback(err);
+							results.push({name: item.name, price: price});
+							callback(null);							
+						});
+						
+					}
+			,			
+			function(err){
+				console.log(results);
+				res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio, totals: results, isProfile: true});
+			});
+
+			
 		}
 	})	
 };
 
 
 exports.help = function(req, res){
-  res.render('help', { title: 'Help | TweetStreet' });
+	res.render('help', { title: 'Help | TweetStreet' });
 };

@@ -162,9 +162,9 @@ block content
 				
 				var method = $('#selectBox .active').data('method');
 				if(method == 'buy') {
-					var newPrice = count * (2 + (2*totalPurchased + shares) * .005) / 200;
+					var newPrice = count * (2 + (2*totalPurchased + shares) * .001) / 200;
 				} else {
-					var newPrice = count * (2 + (2*totalPurchased - shares) * .005) / 200;
+					var newPrice = count * (2 + (2*totalPurchased - shares) * .001) / 200;
 				}
 
 				if(shares == "") {

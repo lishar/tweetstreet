@@ -249,11 +249,21 @@ exports.info = function(req, res) {
 	res.json(req.user);
 }
 
+
+exports.home = function(req, res){
+	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
+		if(err) console.log(err);
+		else {
+			res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio, isHome: true});
+		}
+	})	
+};
+
 exports.profile = function(req, res){
 	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 		if(err) console.log(err);
 		else {
-			res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio});
+			res.render('profile', { title: 'Profile | TweetStreet', portfolio: portfolio, isProfile: true});
 		}
 	})	
 };

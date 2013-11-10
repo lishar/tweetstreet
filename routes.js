@@ -53,7 +53,8 @@ exports = module.exports = function(app, passport) {
 	app.get('/me', login.ensureLoggedIn(), user.info);		
 	app.get('/history', login.ensureLoggedIn(), user.history);
 
-	app.get('/search', login.ensureLoggedIn(), ht.search);
+	app.get('/home', user.home);
+	app.get('/stock', login.ensureLoggedIn(), ht.stock);
 	app.get('/buy/:hashtag', login.ensureLoggedIn(), user.buy);
 	app.get('/sell/:hashtag', login.ensureLoggedIn(), user.sell);
 	app.get('/leaderboard', leaderboard.index);

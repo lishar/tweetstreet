@@ -1,12 +1,56 @@
 var util = require('util'),
+	sugar = require('sugar'),
     exec = require('child_process').exec;	
 
-exports.search = function(req, res){
+exports.stock = function(req, res){
 	console.log(req.query.q);
-  price(req, req.query.q, function(err, price){
-  	if(err) res.send(500);
-  	res.json(price);  	
-  });
+	req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
+		if(err) console.log(err);
+		else {
+			req.app.db.models.Cache.findOne({name: req.query.q + '#total'}, function(err, cache){
+				if(err) console.log(err);
+				else {
+					price(req, req.query.q, function(err, price){
+					  	if(err) res.send(500);
+					  	trend(req, req.query.q, function(err, trendResult){
+						  	if(err) res.send(500);
+						  	// res.write(price);
+						  	// res.json(trend);  
+						  	var search = {
+						  		q: req.query.q,
+						  		price: price,
+						  		trend: [],
+						  		change: 0
+						  	}	
+
+						  	var td = [];
+						  	for(var i = 0; i < trendResult.length; i++){
+						  		var d = Date.create().addDays(-i).format("{Dow} {dd}");
+						  		td.push([d, trendResult[i]/100])
+						  	}
+						  	search.trend = td;
+
+						  	if(search.trend.length > 0){
+						  		console.log(search.trend[search.trend.length-1]);
+						  		search.change = (search.trend[search.trend.length-1][1] - search.trend[search.trend.length-2][1])/search.trend[search.trend.length-1][1];
+						  	}
+
+						  	search.total = 0;
+						  	search.totalLifetime = 0;
+						  	if(cache) search.totalLifetime = cache.value;
+
+						  	portfolio.totals.forEach(function(v){
+						  		if(v.name == req.query.q) search.total = v.shares;
+						  	})
+						  	res.render('stock', { title: 'Search | TweetStreet', search: search });
+						});
+					  });
+				}
+			})	
+			
+		}
+	})	
+  
   
 };
 
@@ -57,9 +101,53 @@ exports.count = count = function(req, name, cb) {
 	});
 }
 
+
+exports.trend = trend = function(req, n, cb) {		
+	name = n + '#trend';
+	req.app.db.models.Cache.findOne({name: name}, function(err, cache){
+		if(err) console.log(err);
+		if(!cache) {			
+			var cache = new req.app.db.models.Cache();
+			cache.name = name;
+			historicExternal(n, function(err, trend) {
+				if(err) cb(err);				
+				cache.value = trend;
+				cache.save(function(err){
+					if(err) cb(err);
+					else cb(null, JSON.parse(trend));
+				})
+			})
+		} else {			
+			var last = new Date(cache.lastUpdated);			
+			var now = new Date();
+			
+			if((now.getTime() - last.getTime())/1000 > 86400){				
+				historicExternal(n, function(err, trend) {
+					if(err) cb(err);
+					cache.value = trend;
+					cache.save(function(err){
+						if(err) cb(err);
+						else cb(null, JSON.parse(trend));
+					})
+				})
+			} else {
+				cb(null, JSON.parse(cache.value));	
+			}			
+		}
+	});
+}
 exports.countExternal = countExternal = function(name, cb) {
 	var child = exec(require('path').resolve(__dirname, '../bin/crawl.py') + ' ' + name,
 		function (error, stdout, stderr) {
+			cb(error, stdout.trim());
+		});
+}
+
+exports.historicExternal = historicExternal = function(name, cb) {
+	console.log('n: '+ name)
+	var child = exec(require('path').resolve(__dirname, '../bin/monthcrawler.py') + ' ' + name,
+		function (error, stdout, stderr) {
+			console.log("SO:" + stdout);
 			cb(error, stdout.trim());
 		});
 }

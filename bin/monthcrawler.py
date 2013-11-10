@@ -15,7 +15,6 @@ def find_between( s, first, last ):
         return ""
 
 searchString = sys.argv[1]
-print searchString
 
 ts = str(int(time.time()))
 url = "http://otter.topsy.com/searchhistogram.js?callback=jQuery18305000729341991246_1383972190643&q=%23" + searchString + "&slice=86400&period=30&count_method=citation&call_timestamp=" + ts + "&apikey=09C43A9B270A470B8EB8F2946A9369F3&_=1383972192716"

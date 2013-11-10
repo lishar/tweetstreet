@@ -26,9 +26,9 @@ exports.stock = function(req, res){
 						  	var td = [];
 						  	for(var i = 0; i < trendResult.length; i++){
 						  		var d = Date.create().addDays(-i).format("{Dow} {dd}");
-						  		td.push([d, trendResult[i]/100])
+						  		td.push([d, trendResult[i]])
 						  	}
-						  	search.trend = td;
+						  	search.trend = td.reverse();
 
 						  	if(search.trend.length > 0){
 						  		console.log(search.trend[search.trend.length-1]);

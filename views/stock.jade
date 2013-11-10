@@ -39,7 +39,7 @@ block content
 							section.vbox
 								.wrapper
 									section.panel
-										header.panel-heading.font-bold Last Month
+										header.panel-heading.font-bold Monthly Hashtag Usage
 										.panel-body
 											#flot-color(style='height: 250px;')
 						#tab2.tab-pane
@@ -64,9 +64,10 @@ block content
 																input(type='radio', name='d-s-r')
 																| Sell
 												.inline.v-middle
-													.input-group.input-s-sm
-														input#appendedInput.input-sm.form-control(type='text')
-												a.btn.btn-s-md.btn-success(href='#') Go!
+													.input-group
+														input.form-control(type='text')
+														span.input-group-btn
+														button.btn.btn-success(type='button') Go!										
 				aside.b-l.aside-xl.bg-light
 					section.wrapper
 						#accordion2.panel-group.m-b
@@ -154,4 +155,9 @@ block content
 			);
 
 
+			$('#go').click(function(){
+				alert('y');
+				$('form');
 			});
+
+		});

@@ -145,10 +145,10 @@ exports.buy = function(req, res){
 			if(err) res.send(500);
 			count(req, req.params.hashtag, function(err, count){
 				if(err) res.send(500);
-				console.log("shares: " + transaction.shares);
-				console.log("totalPrice: " + price);
-				console.log("topsyPrice: " + count/100);
-				console.log("tsb: " + totalPurchased);
+				console.log("count: " + count);
+				console.log("totalPurchased: " + totalPurchased);
+				console.log("transaction.shares: " + transaction.shares);
+				// console.log("tsb: " + totalPurchased);
 
 				transaction.price = count * (2 + (2*totalPurchased + transaction.shares) * .001) / 200;
 				console.log(transaction.price);

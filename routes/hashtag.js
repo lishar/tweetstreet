@@ -50,7 +50,13 @@ exports.stock = function(req, res){
 							  	req.app.twitter.search({'q': '#' + req.query.q}, function(error, feed) {
 							  		if(error) res.send(500);
 							  		// console.log(feed);
-							  		res.render('stock', { title: 'Search | TweetStreet', search: search , feed: feed});
+							  		count(req, req.query.q, function(err, count){
+										if(err) res.send(500);
+										search.count = count;	
+										console.log(search);									
+										res.render('stock', { title: 'Search | TweetStreet', search: search , feed: feed});					
+									});
+							  		
 							  	});
 							});
 					 	 });

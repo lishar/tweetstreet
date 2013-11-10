@@ -67,7 +67,8 @@ block content
 													.input-group
 														input#numShares.form-control(type='text')
 														input#htName.hidden.form-control(type='text',value=search.q)
-														input#htCount.hidden.form-control(type='text',value=search.price)
+														input#htCount.hidden.form-control(type='text',value=search.count)
+														input#htOrigPrice.hidden.form-control(type='text',value=search.price)
 														input#htTotalShares.hidden.form-control(type='text',value=search.totalLifetime)
 														span.input-group-btn
 														button#go.btn.btn-info(type='button') Go!	
@@ -156,21 +157,25 @@ block content
 			);
 
 			$('#numShares').bind('input', function(){ 					
-				var count = $('#htCount').val();				
-				var totalPurchased = $('#htTotalShares').val();
-				var shares = $('#numShares').val();
+				var count = parseFloat($('#htCount').val());				
+				var totalPurchased = parseFloat($('#htTotalShares').val());
+				var shares = parseFloat($('#numShares').val());
+				var origPrice = parseFloat($('#htOrigPrice').val());
 				
+				console.log("C:" + count);
+				console.log("tp:" + totalPurchased);
+				console.log("shares:" + shares);
 				var method = $('#selectBox .active').data('method');
 				if(method == 'buy') {
-					var newPrice = count * (2 + (2*totalPurchased + shares) * .001) / 200;
+					var newPrice = (count * (2 + (((2*totalPurchased) + shares) * .001))) / 200;
 				} else {
-					var newPrice = count * (2 + (2*totalPurchased - shares) * .001) / 200;
+					var newPrice = (count * (2 + (((2*totalPurchased) - shares) * .001))) / 200;
 				}
 
 				if(shares == "") {
-					$('#newPrice').html(parseFloat(count).toFixed(2));
+					$('#newPrice').html(parseFloat(origPrice).toFixed(2));
 				} else if(isNaN(parseFloat(shares))) {
-					$('#newPrice').html(parseFloat(count).toFixed(2));
+					$('#newPrice').html(parseFloat(origPrice).toFixed(2));
 				} else{
 
 					$('#newPrice').html(parseFloat(newPrice).toFixed(2));	

@@ -26,6 +26,8 @@
     "passport-facebook": "*",
     "passport-local": "0.1.x",
     "mongoose-tree": "*",
-    "shortid": "*"
+    "shortid": "*",
+    "node-twitter": "*",
+    "moment": "*"
   }
 }

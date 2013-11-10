@@ -2,6 +2,8 @@ var util = require('util'),
 	sugar = require('sugar'),
     exec = require('child_process').exec;	
 
+var moment = require('moment');
+
 exports.stock = function(req, res){
 	req.query.q = req.query.q.replace(/#/g,'').replace(/ /g,'');
 	if(req.query.q == '') return res.redirect('/home');
@@ -42,12 +44,16 @@ exports.stock = function(req, res){
 						 	 	search.totalLifetime = 0;
 						  		if(cache) search.totalLifetime = cache.value;
 
-						  	portfolio.totals.forEach(function(v){
-						  		if(v.name == req.query.q) search.total = v.shares;
-						  	})
-						  	res.render('stock', { title: 'Search | TweetStreet', search: search });
-						});
-					  });
+							  	portfolio.totals.forEach(function(v){
+							  		if(v.name == req.query.q) search.total = v.shares;
+							  	})
+							  	req.app.twitter.search({'q': '#' + req.query.q}, function(error, feed) {
+							  		if(error) res.send(500);
+							  		console.log(feed);
+							  		res.render('stock', { title: 'Search | TweetStreet', search: search , feed: feed});
+							  	});
+							});
+					 	 });
 					});
 				}
 			})	
@@ -152,6 +158,20 @@ exports.historicExternal = historicExternal = function(name, cb) {
 			console.log("SO:" + stdout);
 			cb(error, stdout.trim());
 		});
+}
+
+exports.tweet = function(req, res) {
+	req.app.twitter.search({'q': req.query.q}, function(error, result) {
+		console.log('stuff')
+    	if (error) {
+	        console.log('Error: ' + (error.code ? error.code + ' ' + error.message : error.message));
+	    }
+
+	    if (result) {
+	        console.log(result);
+	        res.json(result);
+	    }
+	});
 }
 
 exports.totalPurchased = totalPurchased = function(req, name, value, cb) {

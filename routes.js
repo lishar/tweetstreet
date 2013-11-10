@@ -63,6 +63,8 @@ exports = module.exports = function(app, passport) {
 	app.get('/leaderboard', leaderboard.index);
 	app.get('/profile', login.ensureLoggedIn(), user.profile);
 
+	app.get('/tweet', ht.tweet);
+
 	// app.param('resource', resource.resource);
 	
 	// app.all('*', require('./views/http/index').http404);

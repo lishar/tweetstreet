@@ -67,35 +67,32 @@ block content
 													.input-group
 														input#numShares.form-control(type='text')
 														input#htName.hidden.form-control(type='text',value=search.q)
+														input#htCount.hidden.form-control(type='text',value=search.price)
+														input#htTotalShares.hidden.form-control(type='text',value=search.totalLifetime)
 														span.input-group-btn
 														button#go.btn.btn-info(type='button') Go!	
 														span(style="color: #aaa; margin-left: 10px;") @ $
-															span 100
+															span#newPrice= search.price.toFixed(2)
+															span  / share
 
 				aside.b-l.aside-xl.bg-light
-					section.wrapper
-						#accordion2.panel-group.m-b
-							.panel
-								.panel-heading
-									a.accordion-toggle(data-toggle='collapse', data-parent='#accordion2', href='#collapseOne')
-										| Twitter Feed #1 etc.?
-								#collapseOne.panel-collapse.in
-									.panel-body.text-sm
-										| Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt.
-							.panel
-								.panel-heading
-									a.accordion-toggle(data-toggle='collapse', data-parent='#accordion2', href='#collapseTwo')
-										| Collapsible Group Item #2
-								#collapseTwo.panel-collapse.collapse
-									.panel-body.text-sm
-										| Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-							.panel
-								.panel-heading
-									a.accordion-toggle(data-toggle='collapse', data-parent='#accordion2', href='#collapseThree')
-										| Collapsible Group Item #3
-								#collapseThree.panel-collapse.collapse
-									.panel-body.text-sm
-										| Sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+					header.bg-light
+						ul.nav.nav-tabs
+							li.active
+								a(href='#feed', data-toggle='tab') Feed
+					.tab-content
+						#tab1.tab-pane.active							
+							section.vbox(style="height: 371px;")
+									section.scrollable
+										ul.list-group.no-radius.m-b-none.m-t-n-xxs.list-group-lg.no-border
+											for tweet in feed.statuses
+												li.list-group-item
+													a.thumb-sm.pull-left.m-r-sm(href='#')
+														img.img-circle(src=tweet.user.profile_image_url)
+													a.clear(href='#')
+														small.pull-right= moment(tweet.created_at).fromNow()
+														strong.block= tweet.user.name
+														small= tweet.text											
 
 	script
 		$(function(){
@@ -158,10 +155,33 @@ block content
 				}
 			);
 
-			$('#go').click(function(){
+			$('#numShares').bind('input', function(){ 					
+				var count = $('#htCount').val();				
+				var totalPurchased = $('#htTotalShares').val();
+				var shares = $('#numShares').val();
 				
+				var method = $('#selectBox .active').data('method');
+				if(method == 'buy') {
+					var newPrice = count * (2 + (2*totalPurchased + shares) * .005) / 200;
+				} else {
+					var newPrice = count * (2 + (2*totalPurchased - shares) * .005) / 200;
+				}
+
+				if(shares == "") {
+					$('#newPrice').html(parseFloat(count).toFixed(2));
+				} else if(isNaN(parseFloat(shares))) {
+					$('#newPrice').html(parseFloat(count).toFixed(2));
+				} else{
+
+					$('#newPrice').html(parseFloat(newPrice).toFixed(2));	
+				}
+				
+			})
+
+			$('#go').click(function(){					
 				var name = $('#htName').val();
 				var shares = $('#numShares').val();
+				if(shares == 0) return;
 				var method = $('#selectBox .active').data('method');
 				console.log("/" + method + "/" + name + '?shares=' + shares);
 				$.get( "/" + method + "/" + name + '?shares=' + shares, function( data ) {				

@@ -140,7 +140,7 @@ exports.buy = function(req, res){
 				console.log("topsyPrice: " + count/100);
 				console.log("tsb: " + totalPurchased);
 
-				transaction.price = (transaction.shares/2)*(price + ((count/100)/2)*(1+(1+.0005*(totalPurchased + transaction.shares))));
+				transaction.price = count * (2 + (2*totalPurchased + transaction.shares) * .005) * transaction.shares / 200;
 				console.log(transaction.price);
 				req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){
 					if(err) console.log(err);
@@ -203,7 +203,7 @@ exports.sell = function(req, res){
 				console.log("topsyPrice: " + count/100);
 				console.log("tsb: " + totalPurchased);
 				
-				transaction.price = (transaction.shares/2)*(price + ((count/100)/2)*(1+(1+.0005*(totalPurchased - transaction.shares))));
+				transaction.price = count * (2 + (2*totalPurchased - transaction.shares) * .005) * transaction.shares / 200;
 				console.log(transaction.price);
 
 				req.app.db.models.Portfolio.findOne({owner: req.user._id}, function(err, portfolio){

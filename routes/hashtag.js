@@ -46,6 +46,7 @@ exports.stock = function(req, res){
 						  	res.render('stock', { title: 'Search | TweetSt', search: search });
 						});
 					  });
+					});
 				}
 			})	
 			
@@ -179,13 +180,19 @@ exports.totalPurchased = totalPurchased = function(req, name, value, cb) {
 					pastCache.save(function(err){
 						if(err) cb(err);
 					})
+					cache.value = parseInt(cache.value) + parseInt(value);
+					cache.save(function(err, cache){
+						if(err) cb(err);
+						else cb(null, parseInt(cache.value));
+					})
 				});
+			} else {
+				cache.value = parseInt(cache.value) + parseInt(value);
+				cache.save(function(err, cache){
+					if(err) cb(err);
+					else cb(null, parseInt(cache.value));
+				})
 			}
-			cache.value = parseInt(cache.value) + parseInt(value);
-			cache.save(function(err, cache){
-				if(err) cb(err);
-				else cb(null, parseInt(cache.value));
-			})	
 		}
 	});
 }

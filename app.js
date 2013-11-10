@@ -30,7 +30,7 @@ app.db.once('open', function () {
 });
 
 // twitter
-var Twitter = require('node-twitter');
+var Twitter = require('node-twit');
 
 app.twitter = new Twitter.SearchClient(
     't7wKGltr13Zo7XYOrWu6VQ',

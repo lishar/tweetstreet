@@ -30,28 +30,28 @@ exports.stock = function(req, res){
 						  	}
 						  	search.trend = td.reverse();
 
-						  	if(search.trend.length > 0){
-						  		console.log(search.trend[search.trend.length-1]);
-						  		search.change = (search.trend[search.trend.length-1][1] - search.trend[search.trend.length-2][1])/search.trend[search.trend.length-1][1];
-						  	}
+						  	req.app.db.models.Cache.findOne({name: req.query.q + '#pastTotal'}, function(err, pastCache){
+						  		if(err) res.send(500);
+						  		var pastInflation = parseInt(search.trend[search.trend.length-2][1]) * (1 + (0.005 * parseInt(pastCache.value)));
+								var pastPrice = ((parseInt(search.trend[search.trend.length-2][1]) + pastInflation)/2)/100;
+						  		search.change = (price - pastPrice)/price;
 
-						  	search.total = 0;
-						  	search.totalLifetime = 0;
-						  	if(cache) search.totalLifetime = cache.value;
+						  		search.total = 0;
+						 	 	search.totalLifetime = 0;
+						  		if(cache) search.totalLifetime = cache.value;
 
-						  	portfolio.totals.forEach(function(v){
-						  		if(v.name == req.query.q) search.total = v.shares;
-						  	})
-						  	res.render('stock', { title: 'Search | TweetStreet', search: search });
+						  		portfolio.totals.forEach(function(v){
+						  			if(v.name == req.query.q) search.total = v.shares;
+						  		})
+						  		res.render('stock', { title: 'Search | TweetStreet', search: search });
+						  	});
 						});
 					  });
 				}
 			})	
 			
 		}
-	})	
-  
-  
+	})
 };
 
 exports.price = price = function(req, name, cb) {
@@ -162,9 +162,26 @@ exports.totalPurchased = totalPurchased = function(req, name, value, cb) {
 			cache.value = value;
 			cache.save(function(err){
 				if(err) cb(err);
+			})
+			var pastCache = new req.app.db.models.Cache();
+			pastCache.name = name + '#pastTotal';				
+			pastCache.value = 0;
+			pastCache.save(function(err){
+				if(err) cb(err);
 				else cb(null, value);
-			})			
+			})
 		} else {
+			var last = new Date(cache.lastUpdated);
+			var today = new Date();
+			today.setUTCHours(0,0,0,0);
+			if(last < today) {
+				req.app.db.models.Cache.findOne({name: name + '#pastTotal'}, function(err, pastCache){
+					pastCache.value = cache.value;
+					pastCache.save(function(err){
+						if(err) cb(err);
+					})
+				});
+			}
 			cache.value = parseInt(cache.value) + parseInt(value);
 			cache.save(function(err, cache){
 				if(err) cb(err);

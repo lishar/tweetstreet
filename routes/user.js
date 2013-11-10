@@ -214,6 +214,9 @@ exports.sell = function(req, res){
 				}
 
 				portfolio.balance += transaction.shares * transaction.price
+				if(portfolio.balance > portfolio.maxBalance) {
+					portfolio.maxBalance = portfolio.balance;
+				}
 				portfolio.transactions.push(transaction);
 				var found = false;
 				portfolio.totals.forEach(function(v, k){
